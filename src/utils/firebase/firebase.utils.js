@@ -25,7 +25,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
- initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 
 const provider = new GoogleAuthProvider();
@@ -50,10 +50,10 @@ export const addCollectionAndDocuments = async (
 ) => {
   const batch = writeBatch(db);
   const collectionRef = collection(db, collectionKey);
-  
+
   objectsToAdd.forEach((object) => {
-     const docRef = doc(collectionRef, object.title.toLowerCase());
-     batch.set(docRef, object);
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object);
   });
 
   await batch.commit();
@@ -67,13 +67,10 @@ export const getCategoriesAndDocuments = async () => {
 
   const querySnapshot = await getDocs(q);
 
-  const categoryMap  = querySnapshot.docs.reduce((acc, docSnapshot)=> {
-    const {title, items} = docSnapshot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  },{});
-  return categoryMap;
- };
+  return querySnapshot.docs.map((doc) => doc.data());
+
+
+};
 
 
 
