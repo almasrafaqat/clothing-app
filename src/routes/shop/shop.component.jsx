@@ -14,7 +14,7 @@ const dispatch = useDispatch();
 
   useEffect(() => {
       dispatch(fetchCategoriesStart());
-  }, []);
+  }, [dispatch]);
 
     return (
         <Routes>
