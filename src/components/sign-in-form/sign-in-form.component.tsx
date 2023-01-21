@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { ChangeEvent, FormEvent, Fragment, useState } from "react";
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 import FormInput from "../form-input/form-input.component";
 import './sign-in-form.styles.scss';
@@ -20,7 +20,7 @@ const SignInForm = () => {
     const { email, password } = formFields;
     const dispatch = useDispatch();
 
-    const handleChange = (event) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
 
         setFormFields({ ...formFields, [name]: value });
@@ -37,7 +37,7 @@ const SignInForm = () => {
     }
 
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         try {
@@ -46,20 +46,8 @@ const SignInForm = () => {
             
         }
         catch (error) {
-            switch (error.code) {
-                case 'auth/wrong-password':
-                    alert("Password is incorrect");
-                    break;
-                case 'auth/user-not-found':
-                    alert("User does not exist");
-                    break;
-                default:
-                    console.log(error);
-
-            }
-
-
-        }
+            console.log('user sign in failed', error);
+          }
 
 
     }
